@@ -1,5 +1,4 @@
-from aws_lambda_wsgi import response
-from app import app  # Import your Flask app here
+from aws_wsgi import make_lambda_handler
+from app import app
 
-def lambda_handler(event, context):
-    return response(app, event, context)
+lambda_handler = make_lambda_handler(app)

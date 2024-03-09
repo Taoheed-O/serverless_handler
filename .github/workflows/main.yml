@@ -21,6 +21,6 @@ jobs:
         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_region: eu-west-2
-        function_name: appnew
-        zip_file: appnew-fedc5ea7-7b6d-4268-b42d-0160c75bc342.zip
+        function_name: lambda_handler
+        zip_file: app.zip
         handler_name: lambda_handler.lambda_handler

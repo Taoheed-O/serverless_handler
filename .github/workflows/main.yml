@@ -29,8 +29,5 @@ jobs:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: "eu-west-2"
-      - name: Deploy to Lambda
-        run: |
-          aws lambda update-function-code \
-            --function-name tymsai \
-            --zip-file fileb://package.zip
+          function_name: tymsai  # Make sure this is correct
+          zip_file: package.zip

@@ -18,7 +18,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        un: pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Package application
         run: zip -r package.zip .
@@ -30,7 +30,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: "eu-west-2"
       - name: Deploy to Lambda
-      - run: |
+        run: |
           aws lambda update-function-code \
             --function-name tymsai-staging \
             --zip-file fileb://package.zip

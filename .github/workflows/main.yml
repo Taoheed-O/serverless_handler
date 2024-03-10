@@ -1,4 +1,4 @@
-name: Deploy Flask App to AWS Lambda
+name: Deploy to AWS Lambda
 
 on:
   push:
@@ -9,18 +9,28 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.11'
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-    - name: Deploy to AWS Lambda
-      uses: appleboy/lambda-action@v0.1.2
-      with:
-        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws_region: eu-west-2
-        function_name: lambda_handler
-        zip_file: package.zip
-        handler_name: lambda_handler.lambda_handler
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        un: pip install -r requirements.txt
+
+      - name: Package application
+        run: zip -r package.zip .
+
+      - name: Deploy to AWS Lambda
+        uses: appleboy/lambda-action@v0.0.5
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: "eu-west-2"
+      - name: Deploy to Lambda
+      - run: |
+          aws lambda update-function-code \
+            --function-name tymsai-staging \
+            --zip-file fileb://package.zip
